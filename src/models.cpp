@@ -27,8 +27,11 @@ void Models::readTriangles() {
   std::ifstream obj(_objectName);
   std::string line;
   while (std::getline(obj, line)) {
-    if (line.substr(0, 2).compare("f ") == 0)
-      addPoint(line, _points);
+    if (line.substr(0, 2).compare("f ") == 0) {
+
+      Triangles tri;
+      tri.po
+    }
   }
   obj.close();
 }

@@ -23,6 +23,7 @@ class Triangles {
 public:
   Vec3 points[3];
   vector<Texture> textures;
+  Triangles();
 };
 
 class Models {
