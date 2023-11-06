@@ -1,27 +1,43 @@
 #include "../includes/models.hpp"
-#include <fstream>
+#include "../includes/utils.hpp"
 
-int check_parsing(string &argv, string comp) {
-  std::string parsed = std::string(argv);
-  if (parsed.length() < 4) {
-    std::cerr << "Not an " << comp << " file: " << parsed << std::endl;
-    return -1;
+void Models::addPoint(string line, vector<Vec3> &vec) {
+  std::istringstream iss(line);
+  string prefix;
+  float x, y, z;
+  iss >> prefix;
+  iss >> x >> y >> z;
+  Vec3 vector(x, y, z);
+  vec.push_back(vector);
+}
+
+void Models::readPoints() {
+  std::ifstream obj(_objectName);
+  std::string line;
+  while (std::getline(obj, line)) {
+    if (line.substr(0, 2).compare("v ") == 0)
+      addPoint(line, _points);
+    if (line.substr(0, 3).compare("vt ") == 0)
+      addPoint(line, _vt);
   }
-  if (parsed.substr(parsed.length() - 4) != comp) {
-    std::cerr << "Not an " << comp << " file: " << parsed << std::endl;
-    return -1;
+  obj.close();
+}
+
+void Models::readTriangles() {
+  std::ifstream obj(_objectName);
+  std::string line;
+  while (std::getline(obj, line)) {
+    if (line.substr(0, 2).compare("f ") == 0)
+      addPoint(line, _points);
   }
-  std::ifstream file(parsed);
-  if (!file.is_open()) {
-    std::cerr << "Failed to open" << comp << " file: " << parsed << std::endl;
-    return -1;
-  }
-  file.close();
-  return 0;
+  obj.close();
 }
 
 Models::Models(string objectName) : _objectName(objectName) {
   _initState = check_parsing(objectName, ".obj");
   if (_initState < 0)
     return;
+  readPoints();
+  readTriangles();
+  _initState = 0;
 }

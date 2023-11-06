@@ -2,6 +2,7 @@
 #define MODELS_HPP
 
 #include <iostream>
+#include <sstream>
 #include <vector>
 
 using std::string;
@@ -26,12 +27,16 @@ public:
 
 class Models {
 public:
-  vector<float> points;
+  vector<Vec3> _points;
+  vector<Vec3> _vt;
   vector<Triangles> _triangles;
   string _objectName;
   string _texture;
   int _initState;
   Models(string objectName);
+  void addPoint(string line, vector<Vec3> &vec);
+  void readPoints();
+  void readTriangles();
 };
 
 #endif
