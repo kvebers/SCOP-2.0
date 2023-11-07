@@ -1,4 +1,5 @@
 #include "../includes/utils.hpp"
+#include "../includes/models.hpp"
 
 int check_parsing(string &argv, string comp) {
   std::string parsed = std::string(argv);

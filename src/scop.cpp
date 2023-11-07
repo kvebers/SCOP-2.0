@@ -1,7 +1,6 @@
 #include "../includes/models.hpp"
 #include "../includes/stb_image.hpp"
 
-
 int main(int argc, char **argv) {
   vector<Models> models;
   for (int i = 1; i < argc; i++) {
@@ -11,5 +10,7 @@ int main(int argc, char **argv) {
   }
   if (models.size() == 0)
     std::cerr << "No Model Was loaded sucessfuly" << std::endl;
+  WindowManager window;
+  draw(models, window);
   return 0;
 }

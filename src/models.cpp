@@ -1,15 +1,16 @@
 #include "../includes/models.hpp"
 #include "../includes/utils.hpp"
 #include <string>
+#include <vector>
 
-void Models::addPoint(string line, vector<Vec3> &vec) {
+void Models::addPoint(string line, vector<Vec3 *> &vec) {
   std::istringstream iss(line);
   string prefix;
   float x, y, z;
   iss >> prefix;
   iss >> x >> y >> z;
   Vec3 vector(x, y, z);
-  vec.push_back(vector);
+  vec.push_back(&vector);
 }
 
 void Models::readPoints() {
@@ -24,18 +25,25 @@ void Models::readPoints() {
   obj.close();
 }
 
-// Adding more textures can be also done in this function, but I guess I will
+//@todo Adding more textures can be also done in this function, but I guess I
+// will
 // make a seperate UV map function for later
 
+void Models::processPoint(std::string &point1, std::string &point2,
+                          std::string &point3, Triangles &tri,
+                          vector<Vec3 *> &vec) {
+  tri.points[0] = vec[std::stoi(point1) - 1];
+  tri.points[1] = vec[std::stoi(point2) - 1];
+  tri.points[2] = vec[std::stoi(point3) - 1];
+}
 
-
-
-
-void Models::createTriangle(std::string point1, std::string point2,
-                            std::string point3) {
-  cout << point1 << " " << point2 << " " << point3 << endl;
-  
-
+// @todo write a way of adding in textures from the compiler
+void Models::createTriangle(std::string &point1, std::string &point2,
+                            std::string &point3) {
+  Triangles tri;
+  processPoint(point1, point2, point3, tri, _points);
+  _triangles.push_back(tri);
+  cout << _triangles.end()->points << endl;
 }
 
 void Models::readTriangles() {

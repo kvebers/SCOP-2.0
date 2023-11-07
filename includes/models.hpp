@@ -1,6 +1,7 @@
 #ifndef MODELS_HPP
 #define MODELS_HPP
 
+#include "helper.hpp"
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -10,39 +11,30 @@ using std::endl;
 using std::string;
 using std::vector;
 
-class Vec3 {
+class WindowManager {
 public:
-  double x, y, z;
-  Vec3(double X, double Y, double Z) : x(X), y(Y), z(Z) {}
-};
-
-class Texture {
-public:
-  Vec3 points[3];
-};
-
-class Triangles {
-public:
-  Vec3 points[3];
-  vector<Texture> textures;
-  Triangles();
+  int currentWindow;
 };
 
 class Models {
 public:
-  vector<Vec3> _points;
-  vector<Vec3> _vt;
+  vector<Vec3 *> _points;
+  vector<Vec3 *> _vt;
   vector<Triangles> _triangles;
   string _objectName;
   string _texture;
   int _initState;
   Models(string objectName);
-  void addPoint(string line, vector<Vec3> &vec);
+  void addPoint(string line, vector<Vec3 *> &vec);
   void readPoints();
   void readTriangles();
   void splitQuadsInTriangles();
-  void createTriangle(std::string point1, std::string point2,
-                      std::string point3);
+  void processPoint(std::string &point1, std::string &point2,
+                    std::string &point3, Triangles &tri, vector<Vec3 *> &vec);
+  void createTriangle(std::string &point1, std::string &point2,
+                      std::string &point3);
 };
+
+void draw(vector<Models> &models, WindowManager &window);
 
 #endif
