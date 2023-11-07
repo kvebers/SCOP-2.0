@@ -43,7 +43,6 @@ void Models::createTriangle(std::string &point1, std::string &point2,
   Triangles tri;
   processPoint(point1, point2, point3, tri, _points);
   _triangles.push_back(tri);
-  cout << _triangles.end()->points << endl;
 }
 
 void Models::readTriangles() {

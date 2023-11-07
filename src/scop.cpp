@@ -10,6 +10,7 @@ int main(int argc, char **argv) {
   }
   if (models.size() == 0)
     std::cerr << "No Model Was loaded sucessfuly" << std::endl;
+  glfwInit();
   WindowManager window;
   draw(models, window);
   return 0;
