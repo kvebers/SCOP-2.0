@@ -1,5 +1,6 @@
 #include "../includes/models.hpp"
 #include "../includes/utils.hpp"
+#include <string>
 
 void Models::addPoint(string line, vector<Vec3> &vec) {
   std::istringstream iss(line);
@@ -23,16 +24,44 @@ void Models::readPoints() {
   obj.close();
 }
 
+// Adding more textures can be also done in this function, but I guess I will
+// make a seperate UV map function for later
+
+
+
+
+
+void Models::createTriangle(std::string point1, std::string point2,
+                            std::string point3) {
+  cout << point1 << " " << point2 << " " << point3 << endl;
+  
+
+}
+
 void Models::readTriangles() {
   std::ifstream obj(_objectName);
   std::string line;
+  int error = 0;
   while (std::getline(obj, line)) {
     if (line.substr(0, 2).compare("f ") == 0) {
-
-      Triangles tri;
-      tri.po
+      std::istringstream iss(line);
+      string prefix;
+      string point1, point2, point3, point4;
+      iss >> prefix;
+      iss >> point1 >> point2;
+      if (!(iss >> point3))
+        error++;
+      else {
+        if (!(iss >> point4))
+          createTriangle(point1, point2, point3);
+        else {
+          createTriangle(point1, point2, point3);
+          createTriangle(point1, point3, point4);
+        }
+      }
     }
   }
+  cout << _objectName << " has " << error << " errors" << endl;
   obj.close();
 }
 

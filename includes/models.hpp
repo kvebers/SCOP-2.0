@@ -5,6 +5,8 @@
 #include <sstream>
 #include <vector>
 
+using std::cout;
+using std::endl;
 using std::string;
 using std::vector;
 
@@ -38,6 +40,9 @@ public:
   void addPoint(string line, vector<Vec3> &vec);
   void readPoints();
   void readTriangles();
+  void splitQuadsInTriangles();
+  void createTriangle(std::string point1, std::string point2,
+                      std::string point3);
 };
 
 #endif
