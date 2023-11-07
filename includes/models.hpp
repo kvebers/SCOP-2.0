@@ -33,6 +33,7 @@ public:
   string _texture;
   int _initState;
   Models(string objectName);
+  ~Models();
   void addPoint(string line, vector<Vec3 *> &vec);
   void readPoints();
   void readTriangles();
