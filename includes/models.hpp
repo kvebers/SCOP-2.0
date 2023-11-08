@@ -31,6 +31,7 @@ public:
   float _moveY;
   float _rotateX;
   float _rotateY;
+  bool _ceneterObject;
   Vec3 _lightData;
   Vec3 _lightColor;
   Vec3 _viewPos;
@@ -71,6 +72,7 @@ public:
   void drawTriangles(WindowManager &window, vector<Material> &materials);
   void drawTriangle(WindowManager &window, Triangles &triangle,
                     vector<Material> &materials);
+  void centerObject();
 };
 
 void draw(vector<Models> &models, WindowManager &window,

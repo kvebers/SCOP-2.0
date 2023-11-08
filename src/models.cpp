@@ -119,5 +119,29 @@ Models::Models(string objectName) : _objectName(objectName) {
   readPoints();
   readTriangles();
   normalize();
+  centerObject();
   _initState = 0;
+}
+
+void Models::centerObject() {
+  int cnt = 0;
+  float offsetX = 0;
+  float offsetY = 0;
+  float offsetZ = 0;
+  for (auto &it : _points) {
+    offsetX += it->x;
+    offsetY += it->y;
+    offsetZ += it->z;
+    cnt++;
+  }
+  if (cnt == 0)
+    return;
+  offsetX /= cnt;
+  offsetY /= cnt;
+  offsetZ /= cnt;
+  for (auto &it : _points) {
+    it->x -= offsetX;
+    it->y -= offsetY;
+    it->z -= offsetZ;
+  }
 }

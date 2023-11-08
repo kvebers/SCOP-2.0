@@ -24,6 +24,8 @@ void WindowManager::keyCallback(GLFWwindow *window, int key, int scancode,
       *static_cast<WindowManager *>(glfwGetWindowUserPointer(window));
   if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
     windowManager._currentWindow++;
+  if (key == GLFW_KEY_A && action == GLFW_PRESS)
+    windowManager._ceneterObject = true;
 }
 
 void WindowManager::mouseButtonCallback(GLFWwindow *window, int button,
@@ -45,8 +47,9 @@ void WindowManager::windowSizeCallback(GLFWwindow *window, int width,
                                        int height) {
   auto &windowManager =
       *static_cast<WindowManager *>(glfwGetWindowUserPointer(window));
+  glfwGetWindowSize(window, &width, &height);
   windowManager._proportion =
-      static_cast<float>(width) / static_cast<float>(height);
+      (width > 0 && height > 0) ? (static_cast<float>(width) / height) : 1.0f;
   glViewport(0, 0, width, height);
   (void)windowManager;
 }

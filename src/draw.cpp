@@ -20,6 +20,10 @@ void Models::drawTriangles(WindowManager &window, vector<Material> &materials) {
 }
 
 void Models::updateShape(WindowManager &window) {
+  if (window._ceneterObject == true) {
+    window._ceneterObject = false;
+    centerObject();
+  }
   float rotateXRad = window._rotateX * M_PI / 180.0f;
   float rotateYRad = window._rotateY * M_PI / 180.0f;
   float cosX = cos(rotateXRad);
