@@ -24,7 +24,6 @@ void updateShape(WindowManager &window, Models &model) {
   float sinX = sin(rotateXRad);
   float cosY = cos(rotateYRad);
   float sinY = sin(rotateYRad);
-
   for (Vec3 *point : model._points) {
     float yNew = point->y * cosX - point->z * sinX;
     float zNew = point->y * sinX + point->z * cosX;

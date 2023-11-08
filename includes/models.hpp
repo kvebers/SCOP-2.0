@@ -49,6 +49,8 @@ public:
   string _objectName;
   string _texture;
   int _initState;
+  int _currentTexture;
+
   Models(string objectName);
   ~Models();
   void addPoint(string line, vector<Vec3 *> &vec);
@@ -59,6 +61,7 @@ public:
                     std::string &point3, Triangles &tri, vector<Vec3 *> &vec);
   void createTriangle(std::string &point1, std::string &point2,
                       std::string &point3);
+  void Shader(Vec3 *point, WindowManager &window);
   void normalize();
 };
 
