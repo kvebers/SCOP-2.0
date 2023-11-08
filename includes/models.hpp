@@ -20,8 +20,25 @@ using std::vector;
 
 class WindowManager {
 public:
-  int currentWindow;
+  int _currentWindow;
   GLFWwindow *_window;
+  float _proportion;
+  bool _isRotating;
+  float _lastCursorX;
+  float _lastCursorY;
+  float _moveX;
+  float _moveY;
+  float _rotateX;
+  float _rotateY;
+  float _rotateZ;
+  void setupData();
+  static void cursorPositionCallback(GLFWwindow *window, double xpos,
+                                     double ypos);
+  static void keyCallback(GLFWwindow *window, int key, int scancode, int action,
+                          int mods);
+  static void mouseButtonCallback(GLFWwindow *window, int button, int action,
+                                  int mods);
+  static void windowSizeCallback(GLFWwindow *window, int width, int height);
 };
 
 class Models {
@@ -42,6 +59,7 @@ public:
                     std::string &point3, Triangles &tri, vector<Vec3 *> &vec);
   void createTriangle(std::string &point1, std::string &point2,
                       std::string &point3);
+  void normalize();
 };
 
 void draw(vector<Models> &models, WindowManager &window);

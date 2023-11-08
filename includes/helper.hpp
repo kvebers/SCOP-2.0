@@ -12,7 +12,7 @@ using std::vector;
 
 class Vec3 {
 public:
-  double x, y, z;
+  float x, y, z;
   Vec3(double X, double Y, double Z) : x(X), y(Y), z(Z) {}
 };
 
