@@ -33,7 +33,6 @@ void Models::readPoints() {
   obj.close();
 }
 
-
 void Models::processPoint(std::string &point1, std::string &point2,
                           std::string &point3, Triangles &tri,
                           vector<Vec3 *> &vec) {
@@ -44,17 +43,16 @@ void Models::processPoint(std::string &point1, std::string &point2,
 
 // @todo write a way of adding in textures from the compiler
 
-
-
-
-
 void Models::createTriangle(std::string &point1, std::string &point2,
                             std::string &point3) {
   Triangles tri;
   processPoint(point1, point2, point3, tri, _points);
-  if (tri.points)
-
-
+  if (_uvMap == true) {
+    if (point1.find_last_of("/") != std::string::npos &&
+        point1.find_first_of("/", point1.find_last_of("/") + 1) !=
+            std::string::npos)
+      _uvMap = false;
+  }
 
   _triangles.push_back(tri);
 }
@@ -119,6 +117,7 @@ void Models::normalize() {
 }
 
 Models::Models(string objectName) : _objectName(objectName) {
+  _uvMap = true;
   _initState = check_parsing(objectName, ".obj");
   if (_initState < 0)
     return;

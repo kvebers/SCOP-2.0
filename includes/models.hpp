@@ -29,6 +29,7 @@ public:
   string _texture;
   int _currentTexture;
   int _initState;
+  bool _uvMap;
 
   Models(string objectName);
   ~Models();
