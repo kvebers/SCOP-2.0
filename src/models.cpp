@@ -33,9 +33,6 @@ void Models::readPoints() {
   obj.close();
 }
 
-//@todo Adding more textures can be also done in this function, but I guess I
-// will
-// make a seperate UV map function for later
 
 void Models::processPoint(std::string &point1, std::string &point2,
                           std::string &point3, Triangles &tri,
@@ -46,10 +43,19 @@ void Models::processPoint(std::string &point1, std::string &point2,
 }
 
 // @todo write a way of adding in textures from the compiler
+
+
+
+
+
 void Models::createTriangle(std::string &point1, std::string &point2,
                             std::string &point3) {
   Triangles tri;
   processPoint(point1, point2, point3, tri, _points);
+  if (tri.points)
+
+
+
   _triangles.push_back(tri);
 }
 

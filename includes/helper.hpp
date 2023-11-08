@@ -29,6 +29,7 @@ public:
 class Triangles {
 public:
   Vec3 *points[3];
+  float avg;
   vector<Texture> textures;
   Triangles() {
     for (int i = 0; i < 3; ++i)

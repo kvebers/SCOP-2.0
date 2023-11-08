@@ -5,7 +5,7 @@ void WindowManager::cursorPositionCallback(GLFWwindow *window, double xpos,
   auto &windowManager =
       *static_cast<WindowManager *>(glfwGetWindowUserPointer(window));
 
-  if (windowManager._isRotating) {
+  if (windowManager._isRotating || windowManager._isMoving) {
     double deltaX = xpos - windowManager._lastCursorX;
     double deltaY = ypos - windowManager._lastCursorY;
     const float sensitivity = 0.5f;
@@ -34,12 +34,16 @@ void WindowManager::mouseButtonCallback(GLFWwindow *window, int button,
   auto &windowManager =
       *static_cast<WindowManager *>(glfwGetWindowUserPointer(window));
   if (button == GLFW_MOUSE_BUTTON_LEFT) {
-    if (action == GLFW_PRESS) {
-
+    if (action == GLFW_PRESS)
       windowManager._isRotating = true;
-    } else if (action == GLFW_RELEASE) {
+    else if (action == GLFW_RELEASE)
       windowManager._isRotating = false;
-    }
+  }
+  if (button == GLFW_MOUSE_BUTTON_RIGHT) {
+    if (action == GLFW_PRESS)
+      windowManager._isMoving = true;
+    else if (action == GLFW_RELEASE)
+      windowManager._isMoving = false;
   }
 }
 

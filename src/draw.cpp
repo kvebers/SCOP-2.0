@@ -19,11 +19,9 @@ void Models::drawTriangles(WindowManager &window, vector<Material> &materials) {
     drawTriangle(window, it, materials);
 }
 
-void Models::updateShape(WindowManager &window) {
-  if (window._ceneterObject == true) {
-    window._ceneterObject = false;
-    centerObject();
-  }
+void Models::rotateShape(WindowManager &window) {
+  if (window._isRotating == false)
+    return;
   float rotateXRad = window._rotateX * M_PI / 180.0f;
   float rotateYRad = window._rotateY * M_PI / 180.0f;
   float cosX = cos(rotateXRad);
@@ -40,6 +38,40 @@ void Models::updateShape(WindowManager &window) {
     point->x = xNew;
     point->z = zNew;
   }
+}
+
+void Models::moveShape(WindowManager &window) {
+  if (window._isMoving == false)
+    return;
+
+  for (auto &it : _points) {
+    Vec3 &points = *it;
+    points.x += window._rotateY / 100;
+    points.y -= window._rotateX / 100;
+  }
+}
+
+void Models::calculateMedium() {
+  for (auto it = _triangles.begin(); it != _triangles.end(); it++) {
+    Triangles tri = *it;
+    tri.avg = (tri.points[0]->z + tri.points[1]->z + tri.points[2]->z) / 3;
+    it->avg = tri.avg;
+  }
+  std::sort(
+      _triangles.begin(), _triangles.end(),
+      [](const Triangles &a, const Triangles &b) { return a.avg < b.avg; });
+}
+
+void Models::updateShape(WindowManager &window) {
+  if (window._ceneterObject == true) {
+    window._ceneterObject = false;
+    centerObject();
+  }
+  rotateShape(window);
+  moveShape(window);
+  calculateMedium();
+  if (window._rotateX != 0 || window._rotateY != 0)
+    calculateMedium();
   window._rotateX = 0;
   window._rotateY = 0;
 }
