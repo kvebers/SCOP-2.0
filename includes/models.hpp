@@ -4,6 +4,7 @@
 #define GL_SILENCE_DEPRECATION
 #define STB_IMAGE_IMPLEMENTATION
 // #include "/Users/kvebers/.brew/Cellar/glfw/3.3.8/include/GLFW/glfw3.h"
+#include "Material.hpp"
 #include "helper.hpp"
 #include <GLFW/glfw3.h>
 #include <OpenGL/OpenGL.h>
@@ -30,6 +31,9 @@ public:
   float _moveY;
   float _rotateX;
   float _rotateY;
+  Vec3 _lightData;
+  Vec3 _lightColor;
+  Vec3 _viewPos;
   float _rotateZ;
   void setupData();
   static void cursorPositionCallback(GLFWwindow *window, double xpos,
@@ -48,8 +52,8 @@ public:
   vector<Triangles> _triangles;
   string _objectName;
   string _texture;
-  int _initState;
   int _currentTexture;
+  int _initState;
 
   Models(string objectName);
   ~Models();
@@ -61,7 +65,7 @@ public:
                     std::string &point3, Triangles &tri, vector<Vec3 *> &vec);
   void createTriangle(std::string &point1, std::string &point2,
                       std::string &point3);
-  void Shader(Vec3 *point, WindowManager &window);
+  void Shader(Vec3 *point, WindowManager &window, vector<Material> &material);
   void normalize();
 };
 

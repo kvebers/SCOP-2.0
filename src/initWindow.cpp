@@ -22,4 +22,13 @@ void WindowManager::setupData() {
   glfwSetMouseButtonCallback(_window, WindowManager::mouseButtonCallback);
   glfwSetCursorPosCallback(_window, WindowManager::cursorPositionCallback);
   glfwSetWindowSizeCallback(_window, WindowManager::windowSizeCallback);
+  _lightData.x = 5.0f;
+  _lightData.y = -2.0f;
+  _lightData.z = 3.0f;
+  _lightColor.x = 1.0f;
+  _lightColor.y = 1.0f;
+  _lightColor.z = 1.0f;
+  _viewPos.x = 0.0f;
+  _viewPos.y = 0.0f;
+  _viewPos.z = 0.0f;
 }

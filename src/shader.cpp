@@ -83,20 +83,26 @@ Vec3 Reflect(const Vec3 &incoming, const Vec3 &normal) {
   return Sub(incoming, Multiply(normal, Multiply(twos, dotProd)));
 }
 
-void Models::Shader(Vec3 *point, WindowManager &window) {
+void Models::Shader(Vec3 *point, WindowManager &window,
+                    vector<Material> &material) {
   Vec3 def(0, 0, 0);
   Vec3 normal(0, 1, 0);
-  Vec3 lightDir = Normalize(Sub(_lightData, *point));
-  Vec3 viewDir = Normalize(Sub(_viewPos, *point));
-  Vec3 ambient = Multiply(_material[modifier].Ka, _lightColor);
+  Vec3 lightDir = Normalize(Sub(window._lightData, *point));
+  Vec3 viewDir = Normalize(Sub(window._viewPos, *point));
+  Vec3 ambient = Multiply(material[_currentTexture % material.size()].Ka,
+                          window._lightColor);
   Vec3 diffIntensity = Max(Dot(normal, lightDir), def);
-  Vec3 diffHelper = Multiply(_material[modifier].Kd, _lightColor);
+  Vec3 diffHelper = Multiply(material[_currentTexture % material.size()].Kd,
+                             window._lightColor);
   Vec3 diffuse = Multiply(diffHelper, diffIntensity);
   Vec3 reflectDir = Reflect(Sub(def, lightDir), normal);
-  Vec3 specIntensity =
-      Pow(Max(Dot(viewDir, reflectDir), def), _material[modifier].Ns);
+  Vec3 specIntensity = Pow(Max(Dot(viewDir, reflectDir), def),
+                           material[_currentTexture % material.size()].Ns);
   Vec3 specular =
-      Multiply(Multiply(_material[modifier].Ks, _lightColor), specIntensity);
+      Multiply(Multiply(material[_currentTexture % material.size()].Ks,
+                        window._lightColor),
+               specIntensity);
   Vec3 result = Add(ambient, Add(diffuse, specular));
-  glColor4f(result.x, result.y, result.z, _material[modifier].d);
+  glColor4f(result.x, result.y, result.z,
+            material[_currentTexture % material.size()].d);
 }
