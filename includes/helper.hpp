@@ -14,7 +14,7 @@ class Vec3 {
 public:
   float x, y, z;
   Vec3(double X, double Y, double Z) : x(X), y(Y), z(Z) {}
-  Vec3();
+  Vec3() {}
 };
 
 class Texture {

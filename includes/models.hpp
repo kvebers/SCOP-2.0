@@ -67,9 +67,14 @@ public:
                       std::string &point3);
   void Shader(Vec3 *point, WindowManager &window, vector<Material> &material);
   void normalize();
+  void updateShape(WindowManager &window);
+  void drawTriangles(WindowManager &window, vector<Material> &materials);
+  void drawTriangle(WindowManager &window, Triangles &triangle,
+                    vector<Material> &materials);
 };
 
-void draw(vector<Models> &models, WindowManager &window);
+void draw(vector<Models> &models, WindowManager &window,
+          vector<Material> &material);
 void setupGLFW(WindowManager &window);
 
 #endif

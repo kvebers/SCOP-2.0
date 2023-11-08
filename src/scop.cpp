@@ -12,6 +12,8 @@ int main(int argc, char **argv) {
     std::cerr << "No Model Was loaded sucessfuly" << std::endl;
   glfwInit();
   WindowManager window;
-  draw(models, window);
+  vector<Material> materials;
+  addMaterials(materials);
+  draw(models, window, materials);
   return 0;
 }

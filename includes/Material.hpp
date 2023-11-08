@@ -13,4 +13,6 @@ public:
   int illum;
 };
 
+void addMaterials(vector<Material> &materials);
+
 #endif
