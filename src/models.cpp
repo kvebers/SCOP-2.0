@@ -139,11 +139,9 @@ void Models::loadTexture() {
   int channels;
   GLint maxTextureSize;
   string path = replaceModelWithPath(_objectName);
-  std::cout << path << endl;
   unsigned char *data = stbi_load(path.c_str(), &width, &height, &channels, 0);
   if (data) {
     glGenTextures(1, &_texture);
-    std::cout << "here" << std::endl;
     glBindTexture(GL_TEXTURE_2D, _texture);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     glGetIntegerv(GL_MAX_TEXTURE_SIZE, &maxTextureSize);

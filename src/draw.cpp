@@ -36,8 +36,8 @@ void renderLoop(WindowManager &window, vector<Models> &models,
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D,
                   models[window._currentWindow % models.size()]._texture);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     models[window._currentWindow % models.size()].updateShape(window);
     models[window._currentWindow % models.size()].drawTriangles(window,
