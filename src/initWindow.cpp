@@ -31,4 +31,6 @@ void WindowManager::setupData() {
   _viewPos.x = 0.0f;
   _viewPos.y = 0.0f;
   _viewPos.z = 0.0f;
+  _isMoving = false;
+  _isRotating = false;
 }

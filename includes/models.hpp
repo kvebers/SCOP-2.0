@@ -51,6 +51,9 @@ public:
   void centerObject();
   void moveShape(WindowManager &window);
   void calculateMedium();
+  void processTexture(std::string &point1, std::string &point2,
+                      std::string &point3, Triangles &tri, vector<Vec3 *> &vec,
+                      Texture tex);
 };
 
 void draw(vector<Models> &models, WindowManager &window,

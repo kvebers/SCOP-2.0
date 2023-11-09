@@ -41,6 +41,15 @@ void Models::processPoint(std::string &point1, std::string &point2,
   tri.points[2] = vec[std::stoi(point3) - 1];
 }
 
+void Models::processTexture(std::string &point1, std::string &point2,
+                            std::string &point3, Triangles &tri,
+                            vector<Vec3 *> &vec, Texture tex) {
+  tex.points[0] = vec[std::stoi(point1) - 1];
+  tex.points[1] = vec[std::stoi(point2) - 1];
+  tex.points[2] = vec[std::stoi(point3) - 1];
+  tri.textures.push_back(tex);
+}
+
 // @todo write a way of adding in textures from the compiler
 
 void Models::createTriangle(std::string &point1, std::string &point2,
@@ -49,8 +58,17 @@ void Models::createTriangle(std::string &point1, std::string &point2,
   processPoint(point1, point2, point3, tri, _points);
   if (_uvMap == true) {
     if (point1.find_last_of("/") != std::string::npos &&
-        point1.find_first_of("/", point1.find_last_of("/") + 1) !=
-            std::string::npos)
+        point2.find_last_of("/") != std::string::npos &&
+        point3.find_last_of("/") != std::string::npos) {
+      size_t subPoint1 = point1.find_last_of("/");
+      size_t subPoint2 = point1.find_last_of("/");
+      size_t subPoint3 = point1.find_last_of("/");
+      string substring1 = point1.substr(subPoint1 + 1);
+      string substring2 = point1.substr(subPoint2 + 1);
+      string substring3 = point1.substr(subPoint3 + 1);
+      Texture tex;
+      processTexture(substring1, substring2, substring3, tri, _vt, tex);
+    } else
       _uvMap = false;
   }
 
