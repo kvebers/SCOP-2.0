@@ -3,13 +3,10 @@
 #include <algorithm>
 #include <string>
 #include <vector>
+#define STB_IMAGE_IMPLEMENTATION
+#include "../includes/stb_image.hpp"
 
-Models::~Models() {
-  // for (auto ptr : _points)
-  //   delete ptr;
-  // for (auto ptr : _vt)
-  //   delete ptr;
-}
+Models::~Models() {}
 
 void Models::addPoint(string line, vector<Vec3 *> &vec) {
   std::istringstream iss(line);
@@ -43,11 +40,10 @@ void Models::processPoint(std::string &point1, std::string &point2,
 
 void Models::processTexture(std::string &point1, std::string &point2,
                             std::string &point3, Triangles &tri,
-                            vector<Vec3 *> &vec, Texture tex) {
-  tex.points[0] = vec[std::stoi(point1) - 1];
-  tex.points[1] = vec[std::stoi(point2) - 1];
-  tex.points[2] = vec[std::stoi(point3) - 1];
-  tri.textures.push_back(tex);
+                            vector<Vec3 *> &vec) {
+  tri.textures[0] = vec[std::stoi(point1) - 1];
+  tri.textures[1] = vec[std::stoi(point2) - 1];
+  tri.textures[2] = vec[std::stoi(point3) - 1];
 }
 
 // @todo write a way of adding in textures from the compiler
@@ -66,12 +62,10 @@ void Models::createTriangle(std::string &point1, std::string &point2,
       string substring1 = point1.substr(subPoint1 + 1);
       string substring2 = point1.substr(subPoint2 + 1);
       string substring3 = point1.substr(subPoint3 + 1);
-      Texture tex;
-      processTexture(substring1, substring2, substring3, tri, _vt, tex);
+      processTexture(substring1, substring2, substring3, tri, _vt);
     } else
       _uvMap = false;
   }
-
   _triangles.push_back(tri);
 }
 
@@ -98,6 +92,11 @@ void Models::readTriangles() {
       }
     }
   }
+  if (_uvMap == false) {
+    cout << _objectName << ": Does not have a builtin UVMap " << endl;
+    //@todo clear the uvmap cordinates and generate the UVMAP
+  } else
+    cout << _objectName << ": Has a builtin UVMap " << endl;
   cout << _objectName << " has " << error << " errors" << endl;
   obj.close();
 }
@@ -132,6 +131,39 @@ void Models::normalize() {
     point->y /= maxDelta;
     point->z /= maxDelta;
   }
+}
+
+void Models::loadTexture() {
+  int width;
+  int height;
+  int channels;
+  GLint maxTextureSize;
+  string path = replaceModelWithPath(_objectName);
+  std::cout << path << endl;
+  unsigned char *data = stbi_load(path.c_str(), &width, &height, &channels, 0);
+  if (data) {
+    glGenTextures(1, &_texture);
+    std::cout << "here" << std::endl;
+    glBindTexture(GL_TEXTURE_2D, _texture);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glGetIntegerv(GL_MAX_TEXTURE_SIZE, &maxTextureSize);
+    if (width > maxTextureSize || height > maxTextureSize) {
+      std::cerr << "Texture to big" << std::endl;
+      exit(127);
+    }
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
+                 GL_UNSIGNED_BYTE, data);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    stbi_image_free(data);
+  } else {
+    std::cerr << "Error Loading the image" << std::endl;
+    return;
+  }
+  std::cout << "Texture " << path << " has been loaded for " << _objectName
+            << endl;
 }
 
 Models::Models(string objectName) : _objectName(objectName) {

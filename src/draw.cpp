@@ -91,7 +91,8 @@ void renderLoop(WindowManager &window, vector<Models> &models,
 
 void draw(vector<Models> &models, WindowManager &window,
           vector<Material> &materials) {
-  setupGLFW(window);
+  setupGLFW(window, models);
   window.setupData();
+  glDepthRange(0, 3);
   renderLoop(window, models, materials);
 }

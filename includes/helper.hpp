@@ -17,20 +17,11 @@ public:
   Vec3() {}
 };
 
-class Texture {
-public:
-  Vec3 *points[3];
-  Texture() {
-    for (int i = 0; i < 3; ++i)
-      points[i] = nullptr;
-  }
-};
-
 class Triangles {
 public:
   Vec3 *points[3];
+  Vec3 *textures[3];
   float avg;
-  vector<Texture> textures;
   Triangles() {
     for (int i = 0; i < 3; ++i)
       points[i] = nullptr;

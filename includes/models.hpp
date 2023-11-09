@@ -26,7 +26,7 @@ public:
   vector<Vec3 *> _vt;
   vector<Triangles> _triangles;
   string _objectName;
-  string _texture;
+  GLuint _texture;
   int _currentTexture;
   int _initState;
   bool _uvMap;
@@ -52,12 +52,13 @@ public:
   void moveShape(WindowManager &window);
   void calculateMedium();
   void processTexture(std::string &point1, std::string &point2,
-                      std::string &point3, Triangles &tri, vector<Vec3 *> &vec,
-                      Texture tex);
+                      std::string &point3, Triangles &tri, vector<Vec3 *> &vec);
+  void loadTexture();
 };
 
 void draw(vector<Models> &models, WindowManager &window,
           vector<Material> &material);
-void setupGLFW(WindowManager &window);
+void setupGLFW(WindowManager &window, std::vector<Models> &models);
+string replaceModelWithPath(string modelPath);
 
 #endif

@@ -1,5 +1,4 @@
 #include "../includes/models.hpp"
-#include "../includes/stb_image.hpp"
 
 int main(int argc, char **argv) {
   vector<Models> models;

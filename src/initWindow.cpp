@@ -1,7 +1,7 @@
 #include "../includes/models.hpp"
 #include <vector>
 
-void setupGLFW(WindowManager &window) {
+void setupGLFW(WindowManager &window, std::vector<Models> &models) {
   window._window = glfwCreateWindow(2560, 1920, "SCOP", NULL, NULL);
   if (!window._window) {
     std::cerr << "Failed to create GLFW window" << std::endl;
@@ -9,6 +9,8 @@ void setupGLFW(WindowManager &window) {
     exit(127);
   }
   glfwMakeContextCurrent(window._window);
+  for (auto &it : models)
+    it.loadTexture();
   window._currentWindow = 0;
 }
 
