@@ -14,8 +14,13 @@ void Models::addPoint(string line, vector<Vec3 *> &vec) {
   float x, y, z;
   iss >> prefix;
   iss >> x >> y >> z;
-  Vec3 *vector = new Vec3(x, y, z);
-  vec.push_back(vector);
+  if (prefix == "vt") {
+    Vec3 *vector = new Vec3(x, 1 - y, z);
+    vec.push_back(vector);
+  } else {
+    Vec3 *vector = new Vec3(x, y, z);
+    vec.push_back(vector);
+  }
 }
 
 void Models::readPoints() {
@@ -84,10 +89,10 @@ void Models::readTriangles() {
         error++;
       else {
         if (!(iss >> point4))
-          createTriangle(point1, point2, point3);
+          createTriangle(point1, point3, point2);
         else {
-          createTriangle(point1, point2, point3);
-          createTriangle(point1, point3, point4);
+          createTriangle(point1, point4, point3);
+          createTriangle(point1, point3, point2);
         }
       }
     }
