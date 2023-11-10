@@ -4,13 +4,12 @@ void WindowManager::cursorPositionCallback(GLFWwindow *window, double xpos,
                                            double ypos) {
   auto &windowManager =
       *static_cast<WindowManager *>(glfwGetWindowUserPointer(window));
-
   if (windowManager._isRotating || windowManager._isMoving) {
     double deltaX = xpos - windowManager._lastCursorX;
     double deltaY = ypos - windowManager._lastCursorY;
-    const float sensitivity = 0.5f;
-    windowManager._rotateX += static_cast<float>(deltaY) * sensitivity;
-    windowManager._rotateY += static_cast<float>(deltaX) * sensitivity;
+    float sens = 0.5f;
+    windowManager._rotateX += static_cast<float>(deltaY) * sens;
+    windowManager._rotateY += static_cast<float>(deltaX) * sens;
     windowManager._lastCursorX = xpos;
     windowManager._lastCursorY = ypos;
   }

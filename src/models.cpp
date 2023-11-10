@@ -160,8 +160,7 @@ void Models::loadTexture() {
     std::cerr << "Error Loading the image" << std::endl;
     return;
   }
-  std::cout << "Texture " << path << " has been loaded for " << _objectName
-            << endl;
+  cout << "Texture " << path << " has been loaded for " << _objectName << endl;
 }
 
 Models::Models(string objectName) : _objectName(objectName) {
