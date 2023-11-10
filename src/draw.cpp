@@ -7,8 +7,9 @@ void Models::drawTriangle(WindowManager &window, Triangles &triangle,
   for (int i = 0; i < 3; i++) {
     Shader(triangle.points[i], window, materials);
     glTexCoord2f(triangle.textures[i]->x, triangle.textures[i]->y);
-    glVertex3f(triangle.points[i]->x / window._proportion,
-               triangle.points[i]->y, triangle.points[i]->z);
+    glVertex3f(triangle.points[i]->x / window._proportion / window._zoom,
+               triangle.points[i]->y / window._zoom,
+               triangle.points[i]->z / window._zoom);
   }
   glEnd();
 }

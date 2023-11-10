@@ -57,3 +57,11 @@ void WindowManager::windowSizeCallback(GLFWwindow *window, int width,
   glViewport(0, 0, width, height);
   (void)windowManager;
 }
+
+void WindowManager::scrollCallback(GLFWwindow *window, double xoffset,
+                                   double yoffset) {
+  (void)xoffset;
+  auto &windowManager =
+      *static_cast<WindowManager *>(glfwGetWindowUserPointer(window));
+  windowManager._zoom += static_cast<float>(yoffset / 10);
+}

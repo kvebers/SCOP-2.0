@@ -24,6 +24,7 @@ void WindowManager::setupData() {
   glfwSetMouseButtonCallback(_window, WindowManager::mouseButtonCallback);
   glfwSetCursorPosCallback(_window, WindowManager::cursorPositionCallback);
   glfwSetWindowSizeCallback(_window, WindowManager::windowSizeCallback);
+  glfwSetScrollCallback(_window, WindowManager::scrollCallback);
   _lightData.x = 5.0f;
   _lightData.y = -2.0f;
   _lightData.z = 3.0f;
@@ -35,4 +36,5 @@ void WindowManager::setupData() {
   _viewPos.z = 0.0f;
   _isMoving = false;
   _isRotating = false;
+  _zoom = 2.0f;
 }

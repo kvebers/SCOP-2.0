@@ -24,6 +24,7 @@ public:
   float _moveY;
   float _rotateX;
   float _rotateY;
+  float _zoom;
   bool _ceneterObject;
   Vec3 _lightData;
   Vec3 _lightColor;
@@ -37,6 +38,8 @@ public:
   static void mouseButtonCallback(GLFWwindow *window, int button, int action,
                                   int mods);
   static void windowSizeCallback(GLFWwindow *window, int width, int height);
+  static void scrollCallback(GLFWwindow *window, double xoffset,
+                             double yoffset);
 };
 
 #endif
