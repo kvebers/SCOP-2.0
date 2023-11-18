@@ -68,8 +68,11 @@ void createTheTriangle(Triangles &it) {
   it.textures[0]->x = 0;
   it.textures[0]->y = 0;
   it.textures[0]->z = 0;
-  it.textures[1]->x = calculateDistance(it, 0, 1);
-  it.textures[1]->y = 0;
+  float distanceP1P2 = calculateDistance(it, 0, 1);
+  float angle = acos((it.points[1]->x - it.points[0]->x) / distanceP1P2);
+
+  it.textures[1]->x = distanceP1P2 * cos(angle);
+  it.textures[1]->y = distanceP1P2 * sin(angle);
   it.textures[1]->z = 0;
   PlotThirdPoint(it, 0, 1, 2);
 }
@@ -82,8 +85,8 @@ void findThirdPoint(Triangles &it, int *point1, int *point2, int *targetPoint) {
     *targetPoint = 0;
   } else if (std::isnan(it.textures[1]->x) && std::isnan(it.textures[1]->y) &&
              std::isnan(it.textures[1]->z)) {
-    *point1 = 2;
-    *point2 = 0;
+    *point1 = 0;
+    *point2 = 2;
     *targetPoint = 1;
   } else {
     *point1 = 0;
