@@ -40,11 +40,9 @@ int checkIfNanf(Triangles &tri) {
 void PlotThirdPoint(Triangles &it, int point1, int point2, int targetPoint) {
   float distancePT1 = calculateDistance(it, point1, targetPoint);
   float distancePT2 = calculateDistance(it, point2, targetPoint);
-  float distancePT1PT2 = calculateDistance(it, point2, point1);
-  if (distancePT1PT2 == 0) {
-    cout << "here" << endl;
+  float distancePT1PT2 = calculateDistance(it, point1, point2);
+  if (distancePT1PT2 == 0)
     distancePT1PT2 = 1;
-  }
   if (distancePT1PT2 > distancePT1 + distancePT2) {
     it.textures[targetPoint]->x = 0;
     it.textures[targetPoint]->y = 0;
@@ -84,8 +82,8 @@ void findThirdPoint(Triangles &it, int *point1, int *point2, int *targetPoint) {
     *targetPoint = 0;
   } else if (std::isnan(it.textures[1]->x) && std::isnan(it.textures[1]->y) &&
              std::isnan(it.textures[1]->z)) {
-    *point1 = 0;
-    *point2 = 2;
+    *point1 = 2;
+    *point2 = 0;
     *targetPoint = 1;
   } else {
     *point1 = 0;
@@ -111,7 +109,6 @@ void Models::generateUvMap() {
     for (auto &it : _triangles) {
       if (checkIfNanf(it) == 3) {
         createTheTriangle(it);
-        cout << " Seperate Renders object " << plotedPoints << endl;
         plotedPoints--;
         break;
       }
@@ -135,5 +132,24 @@ void Models::generateUvMap() {
     }
     if (cnt == _triangles.size())
       PointsRendered = true;
+  }
+  float maxX = 0, maxY = 0, minX = 0, minY = 0;
+  for (auto &it : _vt) {
+    if (maxX < it->x)
+      maxX = it->x;
+    if (maxY < it->y)
+      maxY = it->y;
+    if (minX > it->x)
+      minX = it->x;
+    if (minY > it->y)
+      minY = it->y;
+  }
+  float delta = maxX - minX;
+  if (maxY - minY > delta)
+    delta = maxY - minY;
+  cout << delta << endl;
+  for (auto &it : _vt) {
+    it->x = (it->x - minX) / delta;
+    it->y = (it->y - minY) / delta;
   }
 }

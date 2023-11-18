@@ -35,5 +35,5 @@ string replaceModelWithPath(string modelPath) {
     if (fileExists(texturePath))
       return texturePath;
   }
-  return "textures/default.jpg";
+  return "textures/uv.jpg";
 }
