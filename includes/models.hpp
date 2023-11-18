@@ -12,6 +12,7 @@
 #include <OpenGL/gl.h>
 #include <algorithm>
 #include <iostream>
+#include <map>
 #include <sstream>
 #include <vector>
 
@@ -54,6 +55,10 @@ public:
   void processTexture(std::string &point1, std::string &point2,
                       std::string &point3, Triangles &tri, vector<Vec3 *> &vec);
   void loadTexture();
+  void generateUvMap();
+  void plotTriangle(std::map<Vec3 *, bool> &mape, Triangles &it);
+  void plotTriangleFrom2Points(std::map<Vec3 *, bool> mape, Triangles &it,
+                               int pointToPlot);
 };
 
 void draw(vector<Models> &models, WindowManager &window,

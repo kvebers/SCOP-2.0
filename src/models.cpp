@@ -99,7 +99,7 @@ void Models::readTriangles() {
   }
   if (_uvMap == false) {
     cout << _objectName << ": Does not have a builtin UVMap " << endl;
-    //@todo clear the uvmap cordinates and generate the UVMAP
+    // generateUvMap();
   } else
     cout << _objectName << ": Has a builtin UVMap " << endl;
   cout << _objectName << " has " << error << " errors" << endl;
