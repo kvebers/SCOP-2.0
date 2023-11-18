@@ -21,6 +21,7 @@ class Triangles {
 public:
   Vec3 *points[3];
   Vec3 *textures[3];
+  int connections[3];
   float avg;
   Triangles() {
     for (int i = 0; i < 3; ++i)

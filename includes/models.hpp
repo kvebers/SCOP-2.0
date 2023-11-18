@@ -56,9 +56,7 @@ public:
                       std::string &point3, Triangles &tri, vector<Vec3 *> &vec);
   void loadTexture();
   void generateUvMap();
-  void plotTriangle(std::map<Vec3 *, bool> &mape, Triangles &it);
-  void plotTriangleFrom2Points(std::map<Vec3 *, bool> mape, Triangles &it,
-                               int pointToPlot);
+  void createTexturePoints();
 };
 
 void draw(vector<Models> &models, WindowManager &window,

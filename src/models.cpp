@@ -6,7 +6,12 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "../includes/stb_image.hpp"
 
-Models::~Models() {}
+Models::~Models() {
+  // for (Vec3 *vector : _points) {
+  //   delete vector;
+  // }
+  // _points.clear();
+}
 
 void Models::addPoint(string line, vector<Vec3 *> &vec) {
   std::istringstream iss(line);
@@ -41,6 +46,9 @@ void Models::processPoint(std::string &point1, std::string &point2,
   tri.points[0] = vec[std::stoi(point1) - 1];
   tri.points[1] = vec[std::stoi(point2) - 1];
   tri.points[2] = vec[std::stoi(point3) - 1];
+  tri.connections[0] = std::stoi(point1) - 1;
+  tri.connections[1] = std::stoi(point2) - 1;
+  tri.connections[2] = std::stoi(point3) - 1;
 }
 
 void Models::processTexture(std::string &point1, std::string &point2,
@@ -97,13 +105,13 @@ void Models::readTriangles() {
       }
     }
   }
+  obj.close();
   if (_uvMap == false) {
     cout << _objectName << ": Does not have a builtin UVMap " << endl;
-    // generateUvMap();
+    generateUvMap();
   } else
     cout << _objectName << ": Has a builtin UVMap " << endl;
   cout << _objectName << " has " << error << " errors" << endl;
-  obj.close();
 }
 
 void Models::normalize() {

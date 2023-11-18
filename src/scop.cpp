@@ -14,5 +14,6 @@ int main(int argc, char **argv) {
   vector<Material> materials;
   addMaterials(materials);
   draw(models, window, materials);
+  system("leaks scop");
   return 0;
 }
