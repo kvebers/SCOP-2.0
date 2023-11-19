@@ -37,4 +37,6 @@ void WindowManager::setupData() {
   _isMoving = false;
   _isRotating = false;
   _zoom = 2.0f;
+  _mode = 0;
+  _sign = 1;
 }

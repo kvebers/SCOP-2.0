@@ -25,6 +25,75 @@ void WindowManager::keyCallback(GLFWwindow *window, int key, int scancode,
     windowManager._currentWindow++;
   if (key == GLFW_KEY_A && action == GLFW_PRESS)
     windowManager._ceneterObject = true;
+  if (key == GLFW_KEY_S && action == GLFW_PRESS)
+    windowManager._mode++;
+  if (key == GLFW_KEY_EQUAL && action == GLFW_PRESS)
+    windowManager._sign = 1;
+  if (key == GLFW_KEY_MINUS && action == GLFW_PRESS)
+    windowManager._sign = -1;
+  if (key == GLFW_KEY_1 && action == GLFW_PRESS) {
+    windowManager._material->Ka.x += windowManager._sign * 0.05;
+    if (windowManager._material->Ka.x < 0)
+      windowManager._material->Ka.x = 0;
+    if (windowManager._material->Ka.x > 1)
+      windowManager._material->Ka.x = 1;
+  }
+  if (key == GLFW_KEY_2 && action == GLFW_PRESS) {
+    windowManager._material->Ka.y += windowManager._sign * 0.05;
+    if (windowManager._material->Ka.y < 0)
+      windowManager._material->Ka.y = 0;
+    if (windowManager._material->Ka.y > 1)
+      windowManager._material->Ka.y = 1;
+  }
+  if (key == GLFW_KEY_3 && action == GLFW_PRESS) {
+    windowManager._material->Ka.z += windowManager._sign * 0.05;
+    if (windowManager._material->Ka.z < 0)
+      windowManager._material->Ka.z = 0;
+    if (windowManager._material->Ka.z > 1)
+      windowManager._material->Ka.z = 1;
+  }
+  if (key == GLFW_KEY_4 && action == GLFW_PRESS) {
+    windowManager._material->Kd.x += windowManager._sign * 0.05;
+    if (windowManager._material->Kd.x < 0)
+      windowManager._material->Kd.x = 0;
+    if (windowManager._material->Kd.x > 1)
+      windowManager._material->Kd.x = 1;
+  }
+  if (key == GLFW_KEY_5 && action == GLFW_PRESS) {
+    windowManager._material->Kd.y += windowManager._sign * 0.05;
+    if (windowManager._material->Kd.y < 0)
+      windowManager._material->Kd.y = 0;
+    if (windowManager._material->Kd.y > 1)
+      windowManager._material->Kd.y = 1;
+  }
+  if (key == GLFW_KEY_6 && action == GLFW_PRESS) {
+    windowManager._material->Kd.z += windowManager._sign * 0.05;
+    if (windowManager._material->Kd.z < 0)
+      windowManager._material->Kd.z = 0;
+    if (windowManager._material->Kd.z > 1)
+      windowManager._material->Kd.z = 1;
+  }
+  if (key == GLFW_KEY_7 && action == GLFW_PRESS) {
+    windowManager._material->Ks.x += windowManager._sign * 0.05;
+    if (windowManager._material->Ks.x < 0)
+      windowManager._material->Ks.x = 0;
+    if (windowManager._material->Ks.x > 1)
+      windowManager._material->Ks.x = 1;
+  }
+  if (key == GLFW_KEY_8 && action == GLFW_PRESS) {
+    windowManager._material->Ks.y += windowManager._sign * 0.05;
+    if (windowManager._material->Ks.y < 0)
+      windowManager._material->Ks.y = 0;
+    if (windowManager._material->Ks.y > 1)
+      windowManager._material->Ks.y = 1;
+  }
+  if (key == GLFW_KEY_9 && action == GLFW_PRESS) {
+    windowManager._material->Ks.z += windowManager._sign * 0.05;
+    if (windowManager._material->Ks.z < 0)
+      windowManager._material->Ks.z = 0;
+    if (windowManager._material->Ks.z > 1)
+      windowManager._material->Ks.z = 1;
+  }
 }
 
 void WindowManager::mouseButtonCallback(GLFWwindow *window, int button,

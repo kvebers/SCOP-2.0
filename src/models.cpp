@@ -108,9 +108,12 @@ void Models::readTriangles() {
   obj.close();
   if (_uvMap == false) {
     cout << _objectName << ": Does not have a builtin UVMap " << endl;
+    normalize();
     generateUvMap();
-  } else
+  } else {
     cout << _objectName << ": Has a builtin UVMap " << endl;
+    normalize();
+  }
   cout << _objectName << " has " << error << " errors" << endl;
 }
 
@@ -183,7 +186,6 @@ Models::Models(string objectName) : _objectName(objectName) {
     return;
   readPoints();
   readTriangles();
-  normalize();
   centerObject();
   _initState = 0;
 }

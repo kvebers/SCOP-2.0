@@ -18,17 +18,20 @@ public:
   float _proportion;
   bool _isRotating;
   bool _isMoving;
+  Material *_material;
   float _lastCursorX;
   float _lastCursorY;
   float _moveX;
   float _moveY;
   float _rotateX;
   float _rotateY;
+  int _mode;
   float _zoom;
   bool _ceneterObject;
   Vec3 _lightData;
   Vec3 _lightColor;
   Vec3 _viewPos;
+  int _sign;
   float _moveZ;
   void setupData();
   static void cursorPositionCallback(GLFWwindow *window, double xpos,

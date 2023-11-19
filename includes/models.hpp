@@ -57,6 +57,11 @@ public:
   void loadTexture();
   void generateUvMap();
   void createTexturePoints();
+  void normTexture();
+  void drawPoints(WindowManager &window, Triangles &triangle,
+                  vector<Material> &materials);
+  void drawLines(WindowManager &window, Triangles &triangle,
+                 vector<Material> &materials);
 };
 
 void draw(vector<Models> &models, WindowManager &window,
